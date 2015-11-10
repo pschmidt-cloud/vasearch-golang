@@ -1,0 +1,21 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+}
+
+.examplesText {
+    font-size: 12px;
+    font-style: italic;
+    color: gray;
+}
+
+ul {
+    list-style-image: url("/img/arrow.gif");
+    list-style-type: square;
+}
+

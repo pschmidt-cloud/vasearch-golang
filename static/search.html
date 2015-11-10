@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VA Live Search</title>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/rxjs/dist/rx.lite.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./search.js"></script>
+    <script src="./searchDisplay.js"></script>
+
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="./search.css" rel="stylesheet">
+</head>
+
+<noscript style="color:red; text-align:center">please enable javascript for search to work</noscript>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">VA Live Sample Search [Golang Version]</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container theme-showcase" role="main">
+    <div class="jumbotron">
+        <form id="searchForm" class="form-search" method="POST">
+            <input type="text" class="input-xxlarge" size="66" id="queryString" placeholder="Search..."/>
+            <!--
+            <input type="submit" value="Search" class="btn btn-primary" data-toggle="modal" id="searchBtn">&nbsp;&nbsp;
+            <a href="#" rel="popover" class="btn btn-danger" title="Advanced Search"
+               data-content="Click to bring up the advanced search dialog" id="advancedSearchBtn">Advanced
+                Search</a>
+            <br/>
+            -->
+            <div class="examplesText">Multiple terms default to AND, i.e "cancer male colon" translates to "cancer AND male AND colon" <br />
+                other examples: variants: {200 TO 500}, variants:>200 female, genome:hg18, datastream*
+            </div>
+        </form>
+
+        <div id="showResults" style="display:none">
+            <br />
+            <div id="tookDiv"></div>
+            <h5><a id="folderFacets" href="#" rel="tooltip" title="aggregated by genome">Genome</a></h5>
+            <ul id="genomeListDiv"></ul>
+            <h5><a id="ethnicityFacets" href="#" rel="tooltip" title="aggregated by ethnicity">Ethnicity</a></h5>
+            <ul id="ethnicityListDiv"></ul>
+            <h5><a id="projectFacets" href="#" rel="tooltip" title="aggregated by gender">Gender</a></h5>
+            <ul id="genderListDiv"></ul>
+            <h5>Top 10 Results</h5>
+            <table id="observationTableDiv" class="table table-bordered table-hover table-striped"
+                   width="100%">
+                <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Genome</th>
+                <th>Gender</th>
+                <th>Variants</th>
+                <th>Creation Date</th>
+                <th>Annotations</th>
+                </thead>
+                <tbody id="observationTableBodyDiv">
+                </tbody>
+            </table>
+            <ul id="topResultsDiv">
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
