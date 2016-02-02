@@ -114,8 +114,11 @@ func searchHandler(w http.ResponseWriter, r *http.Request, ctx model.AppLoader) 
 	    Pretty(true).       // pretty print request and response JSON
 	    Do()                // execute
 	if err != nil {
-	    // Handle error
-	    panic(err)
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+		results := "{\"results\":"  + "{\"hits\":{\"total\":0}" + "}}"
+		fmt.Fprintf(w, results)
+		return
 	}
 	
 	fmt.Printf("Query took %d milliseconds\n", searchResult.TookInMillis)
@@ -147,6 +150,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request, ctx model.AppLoader) 
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
 		results := "{\"results\":" + string(jsonResult) + "}"
+		fmt.Println("results=", results)
 		fmt.Fprintf(w, results)
 	} else {
 	    // No hits
@@ -199,7 +203,6 @@ func main() {
 	router.HandleFunc("/sample/{sampleId}", makeHandler(sampleHandler, app))
 	router.HandleFunc("/search/{searchTerm}", makeHandler(searchHandler, app))
 
-	// http://stackoverflow.com/questions/15834278/serving-static-content-with-a-root-url-with-the-gorilla-toolkit
 	s := http.StripPrefix("/static/", http.FileServer(http.Dir("./static/")))
 	router.PathPrefix("/static/").Handler(s)
 
